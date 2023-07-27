@@ -1,0 +1,15 @@
+{
+  "symbol": "XRPUSDT",
+  "side": "BUY",
+  "quantity": "100",
+  "time": "{{timenow}}",
+  "positionside": "LONG"
+}
+
+{
+  "symbol": "XRPUSDT",
+  "side": "{{strategy.order.action}}",
+  "quantity": "{{strategy.order.contracts}}",
+  "time": "{{ticker}}",
+  "positionside": "LONG"
+}
