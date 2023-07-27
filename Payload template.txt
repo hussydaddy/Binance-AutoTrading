@@ -1,6 +1,7 @@
-
-
-order {{strategy.order.action}} @ {{strategy.order.contracts}} filled on {{ticker}}. New strategy position is {{strategy.position_size}}
-
-
-
+{
+  "symbol": {{ticker}},
+  "side": {{strategy.order.action}},
+  "quantity": {{strategy.order.contracts}},
+  "time": {{timenow}},
+  "positionside": {{strategy.market_position}}
+}
