@@ -2,8 +2,13 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import Binance from 'binance-api-node';
 import config from './config.js';
+import errorWebhook from './discord-webhook/error.js'
+import successWebhook from './discord-webhook/success.js'
 
+
+const port = 5002;
 const app = express();
+
 app.use(bodyParser.json());
 
 const client = Binance.default({
@@ -11,6 +16,11 @@ const client = Binance.default({
   apiSecret: config.apiSecret,
   httpFutures: config.httpFutures, // For prod
 });
+
+app.get('/' , async (req ,res)=>{
+  console.log('root route working');
+  res.send('root route working');
+})
 
 app.post('/webhook', async (req, res) => {
   const alert = req.body;
@@ -56,15 +66,17 @@ app.post('/webhook', async (req, res) => {
     const balance = await client.futuresAccountBalance();
     const usdtBalance = balance.find((b) => b.asset === 'USDT');
     console.log('USDT balance:', usdtBalance);
+    successWebhook(usdtBalance);
     return res.json({ message: 'ok' });
   } catch (e) {
     console.log('error', e);
-    return res.json({ message: 'ok' });
+    errorWebhook(e);
+    return res.json({ message: e });
   }
 });
 
-app.listen(3000, async () => {
-  console.log('Server listening on port 3000.');
+app.listen(port, async () => {
+  console.log('Server listening on port' + port);
   try {
     const balance = await client.futuresAccountBalance();
     const usdtBalance = balance.find((b) => b.asset === 'USDT');
