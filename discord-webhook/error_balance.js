@@ -1,24 +1,23 @@
 import axios from 'axios';
 
 async function errorBalanceWebhook(errorstr) {
-
   await axios.post(
-    "https://discord.com/api/webhooks/1134102897085386793/6F0tecZ9zUOfFg7LcTi6KGujWkSnb4jwO_eTIfTKFlcvetBh_8Y6AHjiTteXp78kVjHL",
+    'https://discord.com/api/webhooks/1134102897085386793/6F0tecZ9zUOfFg7LcTi6KGujWkSnb4jwO_eTIfTKFlcvetBh_8Y6AHjiTteXp78kVjHL',
     {
-      username: "Hussy Bot",
+      username: 'Alfiera Notifications',
       avatar_url:
-        "https://media.discordapp.net/attachments/896704667952758838/1134105136051015770/cb.jpg?width=604&height=605",
+        'https://cdn.discordapp.com/attachments/1135281238475812976/1135281673060237482/4.png?width=604&height=605',
       embeds: [
         {
-          title: "🔴 Error",
+          title: '🔴 Error',
 
           description: `${errorstr}`,
           color: 3535616,
-      
+
           footer: {
-            text: "I am a chinal boy",
+            text: 'Powered by ViraLabs',
             icon_url:
-              "https://media.discordapp.net/attachments/896704667952758838/1134105136051015770/cb.jpg?width=604&height=605",
+              'https://cdn.discordapp.com/attachments/1135281238475812976/1135281673597112462/3.png',
           },
         },
       ],
@@ -26,11 +25,10 @@ async function errorBalanceWebhook(errorstr) {
 
     {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     }
   );
 }
-
 
 export default errorBalanceWebhook;
