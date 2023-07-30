@@ -1,7 +1,6 @@
 ## Binance Auto-Trading Bot #
 
 <p>This is an auto-trading bot that integrates with Binance's API to execute trades automatically based on incoming webhooks. The bot listens for incoming trade alerts, closes existing positions if necessary, and places new trades accordingly.</p>
-<br>
 
 ### Features #
 
@@ -11,13 +10,11 @@
 * Handles timestamp synchronization with Binance server time to avoid timestamp errors.
 * Securely stores Binance API credentials using environment variables.
 * Displays the current USDT balance of the Binance futures account.
-<br>
 
 ### Requirements #
 
 * Node.js (tested with version 14.0.0 and above)
 * npm (Node Package Manager)
-<br>
 
 ### Installation #
 
@@ -51,7 +48,6 @@ Replace **your_binance_api_key** and **your_binance_api_secret** with your actua
 ```
 npm start
 ```
-<br>
 
 ### Usage #
 
@@ -61,22 +57,18 @@ npm start
 4. When a webhook is received, the bot will execute the trade based on the alert data.
 5. The bot will send Discord webhooks for position closures and order placements.
 6. Monitor the console for logs and notifications about executed trades and current USDT balance.
-<br>
 
 ### Contributing #
 
 <p> Contributions are welcome! If you find a bug or have an enhancement in mind, feel free to open an issue or submit a pull request. </p>
-<br>
 
 ### License #
 This project is licensed under the MIT License - see the LICENSE file for details.
-<br>
 
 ### Disclaimer #
 
 * Use this bot at your own risk. Trading involves financial risks, and the bot's performance is not guaranteed.
 * The authors and maintainers of this project are not responsible for any financial losses incurred by using this bot.
-<br>
 
 ### Acknowledgments #
 This project uses the [Binance API](https://binance-docs.github.io/apidocs/spot/en/) for executing trades on the Binance exchange.
