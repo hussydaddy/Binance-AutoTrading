@@ -1,0 +1,45 @@
+//@version=5
+strategy(title='[tradinghook] - Renko Trend Reversal Strategy', shorttitle='[tradinghook] - Renko TRS', overlay=true)
+
+// INPUTS
+renkoATRLength = input.int(10, minval=1, title='ATR Length')
+stopLossPct = input.float(3, title='Stop Loss Percentage', step=0.1)
+takeProfitPct = input.float(20, title='Take Profit Percentage', step=0.1)
+startDate = input.time(timestamp("01 Jan 2022 00:00"), title="Start Date")
+endDate = input.time(timestamp("31 Dec 2025 23:59"), title="End Date")
+
+// CALCULATION
+param = ticker.renko(syminfo.tickerid, 'ATR', renkoATRLength)
+var float stopLossPrice = na
+var float takeProfitPrice = na
+
+// create non-repainting security function 
+// thanks to https://zenandtheartoftrading.com/pinescript/how-to-eliminate-repainting/
+rp_security(_symbol, _res, _src) => request.security(_symbol, _res, _src[barstate.isconfirmed ? 0 : 1])
+
+renkoClose = rp_security(param, timeframe.period, close)
+renkoOpen = rp_security(param, timeframe.period, open)
+
+buySignal = barstate.isconfirmed and ta.crossunder(renkoOpen, renkoClose) and time >= startDate and time <= endDate
+sellSignal = barstate.isconfirmed and ta.crossover(renkoOpen, renkoClose) and time >= startDate and time <= endDate
+
+colorGreen = #089981
+colorRed = #F23645
+
+col = renkoClose < renkoOpen ?  colorRed : colorGreen 
+
+// PLOTS
+plot(renkoOpen, title="Renko Open", style=plot.style_line, linewidth=2, color=col)
+plotshape(buySignal, "Buy", shape.labelup, location.belowbar, colorGreen, 0, "Buy", color.white)
+plotshape(sellSignal, "Sell", shape.labeldown, location.abovebar, colorRed, 0, "Sell", color.white)
+
+if (buySignal)
+    stopLossPrice := renkoOpen * (1 - stopLossPct / 100)
+    takeProfitPrice := renkoOpen * (1 + takeProfitPct / 100)
+    strategy.entry("Long", strategy.long)
+    strategy.exit("ExitLong", "Long", stop = stopLossPrice, limit = takeProfitPrice, comment="SL: " + str.tostring(stopLossPrice) + ", TP: " + str.tostring(takeProfitPrice))
+if (sellSignal)
+    stopLossPrice := renkoOpen * (1 + stopLossPct / 100)
+    takeProfitPrice := renkoOpen * (1 - takeProfitPct / 100)
+    strategy.entry("Short", strategy.short)
+    strategy.exit("ExitShort", "Short", stop = stopLossPrice, limit = takeProfitPrice, comment="SL: " + str.tostring(stopLossPrice) + ", TP: " + str.tostring(takeProfitPrice))
