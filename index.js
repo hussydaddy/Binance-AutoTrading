@@ -52,13 +52,16 @@ app.post('/webhook', async (req, res) => {
     // Close existing positions
     const positions = await client.futuresPositionRisk();
     for (const position of positions) {
-      if (position.symbol === alert.symbol && position.positionAmt !== '0.0') {
+      if (
+        position.symbol === alert.symbol &&
+        parseFloat(position.positionAmt) !== 0.0
+      ) {
         console.log(position);
         const closePayload = {
           symbol: alert.symbol,
           side: parseFloat(position.positionAmt) > 0 ? 'SELL' : 'BUY',
           type: 'MARKET',
-          quantity: Math.abs(parseFloat(position.positionAmt)),
+          quantity: Math.abs(parseFloat(position.positionAmt)), // Convert positionAmt to a decimal
           positionSide: position.positionSide,
         };
         await client.futuresOrder(closePayload);
@@ -84,7 +87,7 @@ app.post('/webhook', async (req, res) => {
       symbol: alert.symbol,
       side: alert.side.toUpperCase(),
       type: 'MARKET',
-      quantity: alert.quantity,
+      quantity: parseFloat(alert.quantity), // Convert to floating-point decimal
       timestamp: adjustedTimestamp,
       positionSide: alert.positionside.toUpperCase(),
     };
@@ -107,7 +110,7 @@ app.listen(port, async () => {
   console.log('Server listening on port ' + port);
   try {
     const balance = await client.futuresAccountBalance();
-    const usdtBalance = balance.find((b) => b.asset === 'USDT');
+    const usdtBalance = balance.find((b) => b.asset === 'BUSD');
     console.log('----CURRENT USDT BALANCE----');
     console.log(usdtBalance);
     currentBalance(usdtBalance);
