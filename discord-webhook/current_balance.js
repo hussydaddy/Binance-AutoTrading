@@ -39,11 +39,6 @@ async function currentBalance({
               inline: false,
             },
             {
-              name: 'crossWalletBalance',
-              value: `${crossWalletBalance}`,
-              inline: false,
-            },
-            {
               name: 'crossUnPnl',
               value: `${crossUnPnl}`,
               inline: false,
@@ -51,16 +46,6 @@ async function currentBalance({
             {
               name: 'availableBalance',
               value: `${availableBalance}`,
-              inline: false,
-            },
-            {
-              name: 'maxWithdrawAmount',
-              value: `${maxWithdrawAmount}`,
-              inline: false,
-            },
-            {
-              name: 'marginAvailable',
-              value: `${marginAvailable}`,
               inline: false,
             },
           ],

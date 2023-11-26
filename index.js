@@ -110,7 +110,7 @@ app.listen(port, async () => {
   console.log('Server listening on port ' + port);
   try {
     const balance = await client.futuresAccountBalance();
-    const usdtBalance = balance.find((b) => b.asset === 'BUSD');
+    const usdtBalance = balance.find((b) => b.asset === 'USDT');
     console.log('----CURRENT USDT BALANCE----');
     console.log(usdtBalance);
     currentBalance(usdtBalance);

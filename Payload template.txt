@@ -5,3 +5,11 @@
   "time": {{timenow}},
   "positionside": {{strategy.market_position}}
 }
+
+{
+  "symbol": "SOLBUSD",
+  "side": "{{strategy.order.action}}",
+  "quantity": 1,
+  "timenow": 1691696110148, 
+  "positionside": "{{strategy.market_position}}"
+}
