@@ -27,28 +27,28 @@ This script is designed to automate trading operations on the Binance futures pl
 
 2. Install dependencies:
 
-```bash
-cd binance-autotrading
-```
-```
-npm install
-```
+   ```bash
+   cd binance-autotrading
+   ```
+   ```
+   npm install
+   ```
 
 3. Create a `.env` file in the project root and add your Binance API key and secret:
 
-```
-API_KEY=your_binance_api_key
-API_SECRET=your_binance_api_secret
-HTTP_FUTURES=true
-```
+   ```
+   API_KEY=your_binance_api_key
+   API_SECRET=your_binance_api_secret
+   HTTP_FUTURES=true
+   ```
 
 4. Update Discord webhook URLs in discord-webhook files.
 
 5. Run the script:
 
-```bash
-npm start
-```
+   ```bash
+   npm start
+   ```
 
 ## Usage
 - Send webhook payloads to the `/webhook` endpoint with the required data.
