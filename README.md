@@ -1,74 +1,66 @@
-## Binance Auto-Trading Bot #
+# Binance AutoTrading Script
 
-<p>This is an auto-trading bot that integrates with Binance's API to execute trades automatically based on incoming webhooks. The bot listens for incoming trade alerts, closes existing positions if necessary, and places new trades accordingly.</p>
+## Description
 
-### Features #
+This script is designed to automate trading operations on the Binance futures platform. It listens for incoming webhook notifications, processes the information, and performs actions such as closing positions or placing new orders based on the received data.
 
-* Automatic trade execution on Binance futures market based on incoming webhooks.
-* Close existing positions before placing new trades to manage risk.
-* Uses Discord webhooks for real-time notifications on position closures and order placements.
-* Handles timestamp synchronization with Binance server time to avoid timestamp errors.
-* Securely stores Binance API credentials using environment variables.
-* Displays the current USDT balance of the Binance futures account.
+## Features
 
-### Requirements #
+- Close all positions when the `positionside` is "flat."
+- Place a new order when the `positionside` is "long" or "short."
+- Webhook data is saved to JSON files for logging purposes.
+- Discord integration for real-time notifications.
 
-* Node.js (tested with version 14.0.0 and above)
-* npm (Node Package Manager)
+## Prerequisites
 
-### Installation #
+- Node.js installed on your machine
+- Binance API Key and Secret
+- Discord webhook for notifications
+
+## Getting Started
 
 1. Clone the repository:
 
-```
-git clone https://github.com/your-username/binance-auto-trading-bot.git
-cd binance-auto-trading-bot
-```
+   ```bash
+   git clone https://github.com/yourusername/binance-autotrading.git
+   ```
 
 2. Install dependencies:
 
+```bash
+cd binance-autotrading
+```
 ```
 npm install
 ```
 
-3. Set up environment variables:
-
-* Create a **.env** file in the project's root directory.
-* Add your Binance API key and secret to the **.env** file:
+3. Create a `.env` file in the project root and add your Binance API key and secret:
 
 ```
 API_KEY=your_binance_api_key
 API_SECRET=your_binance_api_secret
-HTTP_FUTURES=https://fapi.binance.com
+HTTP_FUTURES=true
 ```
-Replace **your_binance_api_key** and **your_binance_api_secret** with your actual Binance API key and secret.
 
-4. Start the bot:
+4. Update Discord webhook URLs in discord-webhook files.
 
-```
+5. Run the script:
+
+```bash
 npm start
 ```
 
-### Usage #
+## Usage
+- Send webhook payloads to the `/webhook` endpoint with the required data.
+- View logs in the `webhook_data` directory.
+- Receive real-time notifications on Discord.
 
-1. Ensure the Binance API credentials are correctly set in the **'.env'** file.
-2. Run the bot using **'npm start'**.
-3. The bot will listen for incoming webhooks on the specified port (**3000** by default).
-4. When a webhook is received, the bot will execute the trade based on the alert data.
-5. The bot will send Discord webhooks for position closures and order placements.
-6. Monitor the console for logs and notifications about executed trades and current USDT balance.
+## Contributing
+Feel free to contribute to this project. Fork the repository, make your changes, and submit a pull request.
 
-### Contributing #
+## License
+This project is licensed under the MIT License - see the [LICENSE](https://viralabs.xyz/) site for details.
 
-<p> Contributions are welcome! If you find a bug or have an enhancement in mind, feel free to open an issue or submit a pull request. </p>
 
-### License #
-This project is licensed under the MIT License - see the LICENSE file for details.
 
-### Disclaimer #
 
-* Use this bot at your own risk. Trading involves financial risks, and the bot's performance is not guaranteed.
-* The authors and maintainers of this project are not responsible for any financial losses incurred by using this bot.
-
-### Acknowledgments #
-This project uses the [Binance API](https://binance-docs.github.io/apidocs/spot/en/) for executing trades on the Binance exchange.
